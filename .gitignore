@@ -1,0 +1,6 @@
+node_modules/
+appointments.db
+*.db
+.env
+.DS_Store
+*.zip

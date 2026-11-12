@@ -1,0 +1,16 @@
+id,name,description,dosage,price,availability
+1,Paracetamol,Pain reliever and fever reducer,500mg tablet taken every 4-6 hours as needed,₹15,Yes
+2,Amoxicillin,Antibiotic used to treat bacterial infections,250mg capsule taken three times daily,₹45,Yes
+3,Omeprazole,Reduces stomach acid production,20mg capsule taken once daily,₹35,Yes
+4,Metformin,Oral diabetes medicine that helps control blood sugar levels,500mg tablet taken twice daily,₹25,Yes
+5,Atorvastatin,Lowers cholesterol and triglycerides in the blood,10mg tablet taken once daily,₹60,Yes
+6,Losartan,Treats high blood pressure,50mg tablet taken once daily,₹40,Yes
+7,Albuterol,Bronchodilator that relaxes muscles in the airways,2 puffs every 4-6 hours as needed,₹120,Limited
+8,Cetirizine,Antihistamine that reduces symptoms of allergies,10mg tablet taken once daily,₹30,Yes
+9,Ibuprofen,Nonsteroidal anti-inflammatory drug,400mg tablet taken every 6-8 hours as needed,₹20,Yes
+10,Azithromycin,Antibiotic that fights bacteria in the body,250mg tablet taken once daily for 5 days,₹80,Limited
+11,Montelukast,Leukotriene receptor antagonist used to prevent asthma attacks,10mg tablet taken once daily,₹90,Yes
+12,Fluoxetine,Selective serotonin reuptake inhibitor antidepressant,20mg capsule taken once daily,₹70,Yes
+13,Lisinopril,ACE inhibitor that treats high blood pressure,10mg tablet taken once daily,₹50,Yes
+14,Levothyroxine,Thyroid medicine that replaces a hormone normally produced by the thyroid gland,50mcg tablet taken once daily,₹55,Yes
+15,Amlodipine,Calcium channel blocker that treats high blood pressure,5mg tablet taken once daily,₹40,Yes

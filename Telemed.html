@@ -1,0 +1,745 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Telemedicine Access - Nabha</title>
+    <style>
+   
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #e6f2ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #help-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+
+#help-btn:hover {
+  background-color: #005f99;
+}
+
+
+        /* Language-specific font fallbacks */
+        [lang="hi"] {
+            font-family: "Mangal", Arial, Helvetica, sans-serif;
+        }
+        [lang="pa"] {
+            font-family: "Raavi", Arial, Helvetica, sans-serif;
+        }
+        .header {
+            background-color: #007acc;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header span {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-items: center;
+            padding: 10px;
+        }
+        .card {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            width: 140px;
+            border: 1px solid #ddd; /* replaced box-shadow with border */
+            color: black;
+            cursor: pointer;
+        }
+        .card > div:first-child {
+            font-size: 50px;
+        }
+        .card > div:last-child {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .quick-call-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 260px;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        .call-option {
+            background: #e53935;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-bottom: 12px; /* line gap between items */
+            transition: background-color 0.3s ease;
+        }
+        .call-option:hover {
+            filter: brightness(90%);
+        }
+        .call-option.ambulance { background: #d32f2f; }
+        .call-option.health { background: #c2185b; }
+        .call-option.child { background: #7b1fa2; }
+        .call-option.blood { background: #303f9f; }
+        .call-option.aneja { background: #1976d2; }
+        .call-option.amardeep { background: #00796b; }
+        .call-option.shreya { background: #388e3c; }
+        .modal-bg {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 320px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            margin: auto;
+        }
+        .modal h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .close-btn {
+            background: #ccc;
+            color: black;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .emergency-btn {
+            background: rgb(0, 255, 0);
+            padding: 10px;
+            border-radius: 12px;
+            width: 140px;
+            color: white;
+            box-shadow: 0px 4px 6px rgb(255, 255, 255);
+            margin: 20px auto 80px auto; /* bottom margin */
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .emergency-btn:hover {
+            filter: brightness(90%);
+        }
+        .emergency-btn div:first-child {
+            font-size: 50px;
+        }
+        .emergency-btn div:last-child {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        /* Language selector styling */
+        #language-selector {
+            margin: 15px;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        /* Appointment form styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .btn-primary {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #005f99;
+        }
+        .success-message {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+        .error-message {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body lang="en">
+
+
+    <select id="language-selector" aria-label="Select Language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+    </select>
+
+
+    <div class="header" id="header-title">
+        Telemedicine Access <br />
+        <span id="header-subtitle">Rural Healthcare in Nabha</span>
+    </div>
+<div style="margin:10px;">
+  <a href="tel:104" style="text-decoration:none;">
+    <button id="assistance-btn" style="background-color:#28a745; color:white; border:none; padding:15px 30px; font-size:18px; border-radius:8px; cursor:pointer;">
+      📞 Need General Assistance
+    </button>
+   
+  </a>
+  <button id="help-btn" aria-label="AI Guidance" onclick="openAIGuidance()">?</button>
+
+
+</div>
+
+
+    <div class="grid">
+
+
+        <a href="https://app.meetaugust.ai/join/wa?message=ਸਤਸ੍ਰੀਅਕਾਲ,ਮੈਨੂੰਸਿਹਤਦੀਜਾਣਕਾਰੀਚਾਹੀਦੀਹੈ" target="_blank" style="text-decoration: none;">
+            <div class="card" style="position: relative;">
+                <div>🩺</div>
+                <div id="symptom-checker">Symptom Checker</div>
+                <div style="font-size:10px; color:#777; margin-top:4px;">August AI</div>
+            </div>
+        </a>
+
+
+        <div class="card" onclick="showAppointmentModal()">
+            <div>📅</div>
+            <div id="appointment">Appointment</div>
+        </div>
+
+
+        <div class="card">
+            <div>📋</div>
+            <div id="gov-schemes">Applicable Government Schemes</div>
+        </div>
+
+
+        <div class="card">
+            <div>💊</div>
+            <div id="medicine">Medicine</div>
+        </div>
+
+
+    </div>
+
+
+    <div class="emergency-btn" onclick="showModal()">
+        <div>🚨</div>
+        <div id="emergency-text">Emergency</div>
+    </div>
+
+
+    <div class="modal-bg" id="emergencyModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2 id="quick-emergency-call">Quick Emergency Call</h2>
+
+
+            <a href="tel:112" class="call-option" id="all-emergencies">🚨 All Emergencies – 112</a>
+            <a href="tel:108" class="call-option ambulance" id="ambulance-call">🚑 Ambulance (108)</a>
+            <a href="tel:1098" class="call-option child" id="child-emergency">🧒 Child Emergency (1098)</a>
+            <a href="tel:01765226361" class="call-option blood" id="blood-bank">🩸 Blood Bank – Civil Hospital</a>
+            <a href="tel:01765222998" class="call-option aneja" id="aneja-hospital">🏥 Aneja Children Hospital</a>
+            <a href="tel:01765225994" class="call-option amardeep" id="amardeep-xray">🏥 Amardeep & Geetu X‑Ray</a>
+            <a href="tel:1800112555" class="call-option shreya" id="shreya-hospital">🏥 Community Health Hospital (Helpline: 1800-112-555)</a>
+
+
+            <div class="close-btn" onclick="closeModal()">Close</div>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div class="modal-bg" id="appointmentModal" onclick="closeAppointmentModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2 id="appointment-heading">Book an Appointment</h2>
+            
+            <form id="appointment-form">
+                <div class="form-group">
+                    <label for="name" id="name-label">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" id="phone-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date" id="date-label">Preferred Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time" id="time-label">Preferred Time</label>
+                    <select id="time" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="morning">Morning (9 AM - 12 PM)</option>
+                        <option value="afternoon">Afternoon (12 PM - 3 PM)</option>
+                        <option value="evening">Evening (3 PM - 6 PM)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="doctor" id="doctor-label">Doctor/Specialty</label>
+                    <select id="doctor" name="doctor" required>
+                        <option value="">Select Doctor/Specialty</option>
+                        <option value="general">General Physician</option>
+                        <option value="pediatric">Pediatrician</option>
+                        <option value="gynecology">Gynecologist</option>
+                        <option value="orthopedic">Orthopedic</option>
+                        <option value="dermatology">Dermatologist</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="symptoms" id="symptoms-label">Symptoms/Reason for Visit</label>
+                    <textarea id="symptoms" name="symptoms" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" id="submit-btn">Book Appointment</button>
+            </form>
+            
+            <div id="success-message" class="success-message">Your appointment has been booked successfully!</div>
+            <div id="error-message" class="error-message">There was an error booking your appointment. Please try again.</div>
+            
+            <div class="close-btn" onclick="closeAppointmentModal()" id="close-appointment">Close</div>
+        </div>
+    </div>
+
+<script>
+    // Translations object
+    const translations = {
+        en: {
+            headerTitle: "Telemedicine Access",
+            headerSubtitle: "Rural Healthcare in Nabha",
+            assistanceBtn: "📞 Need Assistance",
+            symptomChecker: "Symptom Checker",
+            appointment: "Appointment",
+            medicine: "Medicine",
+            emergency: "Emergency",
+            quickEmergencyCall: "Quick Emergency Call",
+            allEmergencies: "🚨 All Emergencies – 112",
+            ambulanceCall: "🚑 Ambulance (108)",
+            healthHelpline: "🩺 Health Helpline (104)",
+            childEmergency: "🧒 Child Emergency (1098)",
+            bloodBank: "🩸 Blood Bank – Civil Hospital",
+            anejaHospital: "🏥 Aneja Children Hospital",
+            amardeepXray: "🏥 Amardeep & Geetu X‑Ray",
+            shreyaHospital: "🏥 Community Health Hospital (Helpline: 1800-112-555)",
+            govSchemes: "Applicable Government Schemes",
+            closeBtn: "Close",
+            appointmentHeading: "Book an Appointment",
+            nameLabel: "Full Name",
+            phoneLabel: "Phone Number",
+            dateLabel: "Preferred Date",
+            timeLabel: "Preferred Time",
+            doctorLabel: "Doctor/Specialty",
+            symptomsLabel: "Symptoms/Reason for Visit",
+            submitBtn: "Book Appointment",
+            successMessage: "Your appointment has been booked successfully!",
+            errorMessage: "There was an error booking your appointment. Please try again.",
+            closeAppointment: "Close",
+            selectTime: "Select Time",
+            morningTime: "Morning (9 AM - 12 PM)",
+            afternoonTime: "Afternoon (12 PM - 3 PM)",
+            eveningTime: "Evening (3 PM - 6 PM)",
+            selectDoctor: "Select Doctor/Specialty",
+            generalPhysician: "General Physician",
+            pediatrician: "Pediatrician",
+            gynecologist: "Gynecologist",
+            orthopedic: "Orthopedic",
+            dermatologist: "Dermatologist"
+        },
+        hi: {
+            headerTitle: "टेलीमेडिसिन एक्सेस",
+            headerSubtitle: "नाभा में ग्रामीण स्वास्थ्य देखभाल",
+            assistanceBtn: "📞 सहायता चाहिए",
+            symptomChecker: "लक्षण जांचक",
+            appointment: "अपॉइंटमेंट",
+            medicine: "दवा",
+            emergency: "आपातकालीन",
+            quickEmergencyCall: "त्वरित आपातकालीन कॉल",
+            allEmergencies: "🚨 सभी आपातकालीन – 112",
+            ambulanceCall: "🚑 एम्बुलेंस (108)",
+            healthHelpline: "🩺 हेल्थ हेल्पलाइन (104)",
+            childEmergency: "🧒 बाल आपातकालीन (1098)",
+            bloodBank: "🩸 ब्लड बैंक – सिविल अस्पताल",
+            anejaHospital: "🏥 अनेजा चिल्ड्रन हਸਪਤਾल",
+            amardeepXray: "🏥 अमरदीप और गीतू एक्स-रे",
+            shreyaHospital: "🏥 श्रेया हਸਪਤਾल, नਭਾ",
+            govSchemes: "लागू सरकारी योजनाएं",
+            closeBtn: "बंद करें",
+            // Appointment form translations
+            appointmentHeading: "अपॉइंटमेंट बुक करें",
+            nameLabel: "पूरा नाम",
+            phoneLabel: "फोन नंबर",
+            dateLabel: "पसंदीदा तारीख",
+            timeLabel: "पसंदीदा समय",
+            doctorLabel: "डॉक्टर/विस਼ੇस਼ਤਾ",
+            symptomsLabel: "लक्षण/विजिट का कारण",
+            submitBtn: "अपॉइंटमेंट बुक करें",
+            successMessage: "आपका अपॉइंटमेंट सफलतापूਰਵਕ बुक किया गया है!",
+            errorMessage: "आपका अपॉइंटमेंट बुक करने में त्रुटि हुई। कृपया पुनः प्रयास करें।",
+            closeAppointment: "बंद करें",
+            selectTime: "समय चुनें",
+            morningTime: "सुबह (9 बजे - 12 बजे)",
+            afternoonTime: "दोपहर (12 बजे - 3 बजे)",
+            eveningTime: "शाम (3 बजे - 6 बजे)",
+            selectDoctor: "डॉक्टर/विस਼ੇस਼ਤਾ चुनें",
+            generalPhysician: "सामान्य चिकित्सक",
+            pediatrician: "बाल रोग विशेषज्ञ",
+            gynecologist: "स्त्री रोग विशेषज्ञ",
+            orthopedic: "हड्डी रोग विशेषज्ञ",
+            dermatologist: "त्वचा रोग विशेषज्ञ"
+        },
+        pa: {
+            headerTitle: "ਟੈਲੀਮੈਡੀਸਨ ਐਕਸੈੱਸ",
+            headerSubtitle: "ਨਭਾ ਵਿੱਚ ਪਿੰਡਾਂ ਦੀ ਸਿਹਤ ਸੇਵਾ",
+            assistanceBtn: "📞 ਮਦਦ ਚਾਹੀਦੀ ਹੈ",
+            symptomChecker: "ਲੱਛਣ ਚੈੱਕਰ",
+            appointment: "ਅਪੋਇੰਟਮੈਂਟ",
+            medicine: "ਦਵਾਈ",
+            emergency: "ਐਮਰਜੈਂਸੀ",
+            quickEmergencyCall: "ਤੁਰੰਤ ਐਮਰਜੈਂਸੀ ਕਾਲ",
+            allEmergencies: "🚨 ਸਾਰੇ ਐਮਰਜੈਂਸੀ – 112",
+            ambulanceCall: "🚑 ਐਂਬੂਲੈਂਸ (108)",
+            healthHelpline: "🩺 ਸਿਹਤ ਹੈਲਪਲਾਈਨ (104)",
+            childEmergency: "🧒 ਬੱਚਿਆਂ ਲਈ ਐਮਰਜੈਂਸੀ (1098)",
+            bloodBank: "🩸 ਬਲੱਡ ਬੈਂਕ – ਸਿਵਲ ਹਸਪਤਾਲ",
+            anejaHospital: "🏥 ਅਨੇਜਾ ਚਿਲਡ੍ਰਨ ਹਸਪਤਾਲ",
+            amardeepXray: "🏥 ਅਮਰਦੀਪ ਅਤੇ ਗੀਤੂ ਐਕਸ-ਰੇ",
+            shreyaHospital: "🏥 ਸ਼੍ਰੇਯਾ ਹਸਪਤਾਲ, ਨਭਾ",
+            govSchemes: "ਲਾਗੂ ਸਰਕਾਰी ਯोਜਨਾਵਾਂ",
+            closeBtn: "ਬੰਦ ਕਰੋ",
+            // Appointment form translations
+            appointmentHeading: "ਅਪੋਇੰਟਮੈਂਟ ਬੁੱਕ ਕਰੋ",
+            nameLabel: "ਪੂਰਾ ਨाਮ",
+            phoneLabel: "ਫੋਨ ਨੰਬਰ",
+            dateLabel: "ਪਸੰਦੀਦਾ ਤਾਰੀਖ",
+            timeLabel: "ਪਸੰਦੀਦਾ ਸਮਾਂ",
+            doctorLabel: "ਡਾਕਟਰ/ਵਿਸ਼ੇਸ਼ਤਾ",
+            symptomsLabel: "ਲੱਛਣ/ਵਿਜ਼ਿਟ ਦਾ ਕਾਰਨ",
+            submitBtn: "ਅਪੋਇੰਟਮੈਂਟ ਬੁੱਕ ਕਰੋ",
+            successMessage: "ਤੁਹਾਡੀ ਅਪੋਇੰਟਮੈਂਟ ਸਫਲਤਾਪੂਰਵਕ ਬੁੱਕ ਕੀਤੀ ਗਈ ਹੈ!",
+            errorMessage: "ਤੁਹਾਡੀ ਅਪੋਇੰਟਮੈਂਟ ਬੁੱਕ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਹੋਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+            closeAppointment: "ਬੰਦ ਕਰੋ",
+            selectTime: "ਸਮਾਂ ਚੁਣੋ",
+            morningTime: "ਵੇਰ (9 ਵਜੇ - 12 ਵਜੇ)",
+            afternoonTime: "ਦੁਪਹਿਰ (12 ਵਜੇ - 3 ਵਜੇ)",
+            eveningTime: "ਸ਼ਾਮ (3 ਵਜੇ - 6 ਵਜੇ)",
+            selectDoctor: "ਡਾਕਟਰ/ਵਿਸ਼ੇਸ਼ਤਾ ਚੁਣੋ",
+            generalPhysician: "ਜਨਰਲ ਫਿਜ਼ੀਸ਼਀ਅਨ",
+            pediatrician: "ਬਾਲ ਰੋਗ ਮਾਹਿਰ",
+            gynecologist: "ਔਰਤਾਂ ਦੇ ਰੋਗ ਮਾਹਿਰ",
+            orthopedic: "ਹੱਡੀਆਂ ਦੇ ਰੋਗ ਮਾਹਿਰ",
+            dermatologist: "ਚਮੜੀ ਦੇ ਰੋਗ ਮਾਹਿਰ"
+        }
+    }
+
+
+    // Function to update text according to selected language
+    function updateLanguage(lang) {
+        document.documentElement.lang = lang; // Change lang attribute for font styling
+        document.body.lang = lang; // Change body lang attribute
+
+
+        // Update header main text (text node, not span)
+        let headerTitleEl = document.getElementById('header-title');
+        headerTitleEl.childNodes[0].nodeValue = translations[lang].headerTitle + " ";
+
+
+        document.getElementById('header-subtitle').innerText = translations[lang].headerSubtitle;
+        document.getElementById('gov-schemes').innerText = translations[lang].govSchemes;
+        document.getElementById('assistance-btn').innerText = translations[lang].assistanceBtn;
+        document.getElementById('symptom-checker').innerText = translations[lang].symptomChecker;
+        document.getElementById('appointment').innerText = translations[lang].appointment;
+        document.getElementById('medicine').innerText = translations[lang].medicine;
+        document.getElementById('emergency-text').innerText = translations[lang].emergency;
+        document.getElementById('quick-emergency-call').innerText = translations[lang].quickEmergencyCall;
+        document.getElementById('all-emergencies').innerText = translations[lang].allEmergencies;
+        document.getElementById('ambulance-call').innerText = translations[lang].ambulanceCall;
+        document.getElementById('child-emergency').innerText = translations[lang].childEmergency;
+        document.getElementById('blood-bank').innerText = translations[lang].bloodBank;
+        document.getElementById('aneja-hospital').innerText = translations[lang].anejaHospital;
+        document.getElementById('amardeep-xray').innerText = translations[lang].amardeepXray;
+        document.getElementById('shreya-hospital').innerText = translations[lang].shreyaHospital;
+        document.querySelector('.close-btn').innerText = translations[lang].closeBtn;
+        
+        // Update appointment form translations
+        document.getElementById('appointment-heading').innerText = translations[lang].appointmentHeading;
+        document.getElementById('name-label').innerText = translations[lang].nameLabel;
+        document.getElementById('phone-label').innerText = translations[lang].phoneLabel;
+        document.getElementById('date-label').innerText = translations[lang].dateLabel;
+        document.getElementById('time-label').innerText = translations[lang].timeLabel;
+        document.getElementById('doctor-label').innerText = translations[lang].doctorLabel;
+        document.getElementById('symptoms-label').innerText = translations[lang].symptomsLabel;
+        document.getElementById('submit-btn').innerText = translations[lang].submitBtn;
+        document.getElementById('success-message').innerText = translations[lang].successMessage;
+        document.getElementById('error-message').innerText = translations[lang].errorMessage;
+        document.getElementById('close-appointment').innerText = translations[lang].closeAppointment;
+        
+        // Update dropdown options
+        updateSelectOptions('time', [
+            { value: '', text: translations[lang].selectTime },
+            { value: 'morning', text: translations[lang].morningTime },
+            { value: 'afternoon', text: translations[lang].afternoonTime },
+            { value: 'evening', text: translations[lang].eveningTime }
+        ]);
+        
+        updateSelectOptions('doctor', [
+            { value: '', text: translations[lang].selectDoctor },
+            { value: 'general', text: translations[lang].generalPhysician },
+            { value: 'pediatric', text: translations[lang].pediatrician },
+            { value: 'gynecology', text: translations[lang].gynecologist },
+            { value: 'orthopedic', text: translations[lang].orthopedic },
+            { value: 'dermatology', text: translations[lang].dermatologist }
+        ]);
+    }
+    
+    // Helper function to update select options
+    function updateSelectOptions(selectId, options) {
+        const select = document.getElementById(selectId);
+        const value = select.value; // Save current value
+        
+        // Clear existing options
+        select.innerHTML = '';
+        
+        // Add new options
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.textContent = option.text;
+            select.appendChild(optionElement);
+        });
+        
+        // Restore selected value if possible
+        if (value) {
+            select.value = value;
+        }
+    }
+
+
+    // On page load, set default language to English
+    document.getElementById('language-selector').value = 'en';
+    updateLanguage('en');
+
+
+    // Language selector change event
+    document.getElementById('language-selector').addEventListener('change', function() {
+        updateLanguage(this.value);
+    });
+
+
+    // Modal functions
+    function showModal() {
+        document.getElementById('emergencyModal').style.display = 'flex';
+    }
+    function closeModal(event) {
+        if (!event || event.target.id === 'emergencyModal') {
+            document.getElementById('emergencyModal').style.display = 'none';
+        }
+    }
+    
+    // Appointment Modal functions
+    function showAppointmentModal() {
+        document.getElementById('appointmentModal').style.display = 'flex';
+    }
+    
+    function closeAppointmentModal(event) {
+        if (!event || event.target.id === 'appointmentModal') {
+            document.getElementById('appointmentModal').style.display = 'none';
+            // Reset form and messages
+            document.getElementById('appointment-form').reset();
+            document.getElementById('success-message').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
+        }
+    }
+    
+    // Function to display medicines in the table
+    function displayMedicines(medicines) {
+        const tableBody = document.getElementById('medicine-table-body');
+        tableBody.innerHTML = '';
+        
+        // Get current language
+        const currentLang = document.documentElement.lang;
+        
+        medicines.forEach(medicine => {
+            const row = document.createElement('tr');
+            
+            const nameCell = document.createElement('td');
+            // Use translated name if available, otherwise use default name
+            nameCell.textContent = medicine[`name_${currentLang}`] || medicine.name;
+            row.appendChild(nameCell);
+            
+            const descriptionCell = document.createElement('td');
+            // Use translated description if available, otherwise use default description
+            descriptionCell.textContent = medicine[`description_${currentLang}`] || medicine.description;
+            row.appendChild(descriptionCell);
+            
+            const dosageCell = document.createElement('td');
+            // Use translated dosage if available, otherwise use default dosage
+            dosageCell.textContent = medicine[`dosage_${currentLang}`] || medicine.dosage;
+            row.appendChild(dosageCell);
+            
+            const priceCell = document.createElement('td');
+            priceCell.textContent = medicine.price;
+            row.appendChild(priceCell);
+            
+            const availabilityCell = document.createElement('td');
+            // Translate availability text based on current language
+            let availabilityText = medicine.availability;
+            if (currentLang !== 'en') {
+                if (medicine.availability.toLowerCase() === 'yes') {
+                    availabilityText = currentLang === 'hi' ? 'हां' : 'ਹਾਂ';
+                } else if (medicine.availability.toLowerCase() === 'no') {
+                    availabilityText = currentLang === 'hi' ? 'नहीं' : 'ਨਹੀਂ';
+                } else if (medicine.availability.toLowerCase() === 'limited') {
+                    availabilityText = currentLang === 'hi' ? 'सीमित' : 'ਸੀਮਿਤ';
+                }
+            }
+            availabilityCell.textContent = availabilityText;
+            
+            // Add color based on availability
+            if (medicine.availability.toLowerCase() === 'yes') {
+                availabilityCell.className = 'availability-yes';
+            } else if (medicine.availability.toLowerCase() === 'limited') {
+                availabilityCell.className = 'availability-limited';
+            } else {
+                availabilityCell.className = 'availability-no';
+            }
+            
+            row.appendChild(availabilityCell);
+            
+            tableBody.appendChild(row);
+        });
+    }
+    
+    function closeAppointmentModal(event) {
+        if (!event || event.target.id === 'appointmentModal') {
+            document.getElementById('appointmentModal').style.display = 'none';
+            // Reset form and messages
+            document.getElementById('appointment-form').reset();
+            document.getElementById('success-message').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
+        }
+    }
+    
+    // Form submission handler
+    document.getElementById('appointment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            date: document.getElementById('date').value,
+            time: document.getElementById('time').value,
+            doctor: document.getElementById('doctor').value,
+            symptoms: document.getElementById('symptoms').value,
+            language: document.documentElement.lang // Store selected language
+        };
+        
+        // Send data to server
+        submitAppointment(formData);
+    });
+    
+    // Function to submit appointment to server
+    function submitAppointment(formData) {
+        // In a real implementation, this would be an API call to your backend
+        // For demonstration, we'll simulate a successful submission
+        
+        // Simulate API call with a timeout
+        setTimeout(() => {
+            // Store in localStorage for demonstration (in a real app, this would go to a database)
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            appointments.push({
+                ...formData,
+                id: Date.now(), // Generate a unique ID
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            
+            // Show success message
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('error-message').style.display = 'none';
+            
+            // Reset form after successful submission
+            document.getElementById('appointment-form').reset();
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeAppointmentModal();
+            }, 3000);
+        }, 1000); // Simulate network delay
+    }
+   
+</script>
+</body>
+</html>

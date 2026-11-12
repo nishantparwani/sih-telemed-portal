@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicine Access - Login</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #e6f2ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        /* Language-specific font fallbacks */
+        [lang="hi"] {
+            font-family: "Mangal", Arial, Helvetica, sans-serif;
+        }
+        [lang="pa"] {
+            font-family: "Raavi", Arial, Helvetica, sans-serif;
+        }
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 500px;
+            max-width: 90%;
+            text-align: center;
+            margin: 20px auto;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo h1 {
+            color: #007acc;
+            margin: 0;
+            font-size: 24px;
+        }
+        .logo p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .form-section {
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        .form-section h2 {
+            color: #007acc;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .radio-option input {
+            margin-right: 5px;
+            width: auto;
+        }
+        .btn-login {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .btn-login:hover {
+            background-color: #005f99;
+        }
+        .error-message {
+            color: #e53935;
+            margin-top: 15px;
+            display: none;
+        }
+        .required-field::after {
+            content: " *";
+            color: #e53935;
+        }
+        /* Language selector styling */
+        #language-selector {
+            margin: 15px;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <select id="language-selector" aria-label="Select Language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+    </select>
+
+    <div class="login-container">
+        <div class="logo">
+            <h1 id="header-title">Telemedicine Access</h1>
+            <p id="header-subtitle">Rural Healthcare in Nabha</p>
+        </div>
+        
+        <form id="login-form">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2 id="personal-info-heading">Personal Information</h2>
+                
+                <div class="form-group">
+                    <label for="name" class="required-field" id="name-label">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob" class="required-field" id="dob-label">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="required-field" id="gender-label">Gender</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male" name="gender" value="male" required>
+                            <label for="male" id="male-label">Male</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female" id="female-label">Female</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other" id="other-label">Other</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="required-field" id="phone-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit mobile number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="caste" class="required-field" id="caste-label">Category</label>
+                    <select id="caste" name="caste" required>
+                        <option value="" id="select-category">Select Category</option>
+                        <option value="general" id="general-category">General</option>
+                        <option value="sc" id="sc-category">SC</option>
+                        <option value="st" id="st-category">ST</option>
+                        <option value="obc" id="obc-category">OBC</option>
+                        <option value="ews" id="ews-category">EWS</option>
+                        <option value="pwd" id="pwd-category">PWD</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Medical Information Section -->
+            <div class="form-section">
+                <h2 id="medical-info-heading">Medical Information</h2>
+                
+                <div class="form-group">
+                    <label for="allergies" id="allergies-label">Allergies (if any)</label>
+                    <textarea id="allergies" name="allergies" placeholder="List any allergies you have..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="conditions" id="conditions-label">Prior Medical Conditions</label>
+                    <textarea id="conditions" name="conditions" placeholder="List any existing medical conditions..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="medications" id="medications-label">Current Medications</label>
+                    <textarea id="medications" name="medications" placeholder="List any medications you are currently taking..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Login Credentials Section -->
+            <div class="form-section">
+                <h2 id="credentials-heading">Create Login Credentials</h2>
+                
+                <div class="form-group">
+                    <label for="username" class="required-field" id="username-label">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="required-field" id="password-label">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password" class="required-field" id="confirm-password-label">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-login" id="submit-btn">Register & Login</button>
+            
+            <div id="error-message" class="error-message">
+                Please correct the errors in the form.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Translations object
+        const translations = {
+            en: {
+                headerTitle: "Telemedicine Access",
+                headerSubtitle: "Rural Healthcare in Nabha",
+                personalInfoHeading: "Personal Information",
+                nameLabel: "Full Name",
+                dobLabel: "Date of Birth",
+                genderLabel: "Gender",
+                maleLabel: "Male",
+                femaleLabel: "Female",
+                otherLabel: "Other",
+                phoneLabel: "Phone Number",
+                casteLabel: "Category",
+                selectCategory: "Select Category",
+                generalCategory: "General",
+                scCategory: "SC",
+                stCategory: "ST",
+                obcCategory: "OBC",
+                ewsCategory: "EWS",
+                pwdCategory: "PWD",
+                medicalInfoHeading: "Medical Information",
+                allergiesLabel: "Allergies (if any)",
+                conditionsLabel: "Prior Medical Conditions",
+                medicationsLabel: "Current Medications",
+                credentialsHeading: "Create Login Credentials",
+                usernameLabel: "Username",
+                passwordLabel: "Password",
+                confirmPasswordLabel: "Confirm Password",
+                submitBtn: "Register & Login",
+                errorMessage: "Please correct the errors in the form.",
+                passwordMismatch: "Passwords do not match!",
+                allergiesPlaceholder: "List any allergies you have...",
+                conditionsPlaceholder: "List any existing medical conditions...",
+                medicationsPlaceholder: "List any medications you are currently taking...",
+                phonePlaceholder: "10-digit mobile number"
+            },
+            hi: {
+                headerTitle: "टेलीमेडिसिन एक्सेस",
+                headerSubtitle: "नाभा में ग्रामीण स्वास्थ्य देखभाल",
+                personalInfoHeading: "व्यक्तिगत जानकारी",
+                nameLabel: "पूरा नाम",
+                dobLabel: "जन्म तिथि",
+                genderLabel: "लिंग",
+                maleLabel: "पुरुष",
+                femaleLabel: "महिला",
+                otherLabel: "अन्य",
+                phoneLabel: "फोन नंबर",
+                casteLabel: "श्रेणी",
+                selectCategory: "श्रेणी चुनें",
+                generalCategory: "सामान्य",
+                scCategory: "अनुसूचित जाति",
+                stCategory: "अनुसूचित जनजाति",
+                obcCategory: "अन्य पिछड़ा वर्ग",
+                ewsCategory: "आर्थिक रूप से कमजोर वर्ग",
+                pwdCategory: "दिव्यांग",
+                medicalInfoHeading: "चिकित्सा जानकारी",
+                allergiesLabel: "एलर्जी (यदि कोई हो)",
+                conditionsLabel: "पहले से मौजूद चिकित्सा स्थितियां",
+                medicationsLabel: "वर्तमान दवाएं",
+                credentialsHeading: "लॉगिन क्रेडेंशियल बनाएं",
+                usernameLabel: "उपयोगकर्ता नाम",
+                passwordLabel: "पासवर्ड",
+                confirmPasswordLabel: "पासवर्ड की पुष्टि करें",
+                submitBtn: "पंजीकरण करें और लॉगिन करें",
+                errorMessage: "कृपया फॉर्म में त्रुटियों को सुधारें।",
+                passwordMismatch: "पासवर्ड मेल नहीं खाते!",
+                allergiesPlaceholder: "अपनी एलर्जी की सूची बनाएं...",
+                conditionsPlaceholder: "मौजूदा चिकित्सा स्थितियों की सूची बनाएं...",
+                medicationsPlaceholder: "मौजूदਾ सਮੇਂ ਲਈ ਜਾ ਰਹੀਆਂ ਦਵाईਆਂ ਦੀ ਸੂਚी ਬਣਾਓ...",
+                phonePlaceholder: "10-अंकों का मोबाइल नंबर"
+            },
+            pa: {
+                headerTitle: "ਟੈਲੀਮੈਡੀਸਨ ਐਕਸੈੱਸ",
+                headerSubtitle: "ਨਭਾ ਵਿੱਚ ਪਿੰਡਾਂ ਦੀ ਸਿਹਤ ਸੇਵਾ",
+                personalInfoHeading: "ਨਿੱਜੀ ਜਾਣਕਾਰੀ",
+                nameLabel: "ਪੂਰਾ ਨਾਮ",
+                dobLabel: "ਜਨਮ ਮਿਤੀ",
+                genderLabel: "ਲਿੰਗ",
+                maleLabel: "ਪੁਰਸ਼",
+                femaleLabel: "ਔਰਤ",
+                otherLabel: "ਹੋਰ",
+                phoneLabel: "ਫੋਨ ਨੰਬਰ",
+                casteLabel: "ਸ਼੍ਰੇਣੀ",
+                selectCategory: "ਸ਼੍ਰੇਣੀ ਚੁਣੋ",
+                generalCategory: "ਜਨਰਲ",
+                scCategory: "ਐਸਸੀ",
+                stCategory: "ਐਸਟੀ",
+                obcCategory: "ਓਬੀਸੀ",
+                ewsCategory: "ਈਡਬਲਯੂਐਸ",
+                pwdCategory: "ਪੀਡਬਲਯੂਡੀ",
+                medicalInfoHeading: "ਮੈਡੀਕਲ ਜਾਣਕਾਰੀ",
+                allergiesLabel: "ਐਲਰਜੀਆਂ (ਜੇ ਕੋਈ ਹੋਵੇ)",
+                conditionsLabel: "ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਮੈਡੀਕਲ ਸਥਿਤੀਆਂ",
+                medicationsLabel: "ਮੌਜੂਦਾ ਦਵाਈਆਂ",
+                credentialsHeading: "ਲੌਗਇਨ ਕ੍ਰੈਡੈਂਸ਼ੀਅਲ ਬਣਾਓ",
+                usernameLabel: "ਯੂਜ਼ਰਨੇਮ",
+                passwordLabel: "ਪਾਸਵਰਡ",
+                confirmPasswordLabel: "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+                submitBtn: "ਰਜਿਸਟਰ ਅਤੇ ਲੌਗਇਨ ਕਰੋ",
+                errorMessage: "ਕਿਰਪਾ ਕਰਕੇ ਫਾਰਮ ਵਿੱਚ ਗਲਤੀਆਂ ਨੂੰ ਠੀਕ ਕਰੋ।",
+                passwordMismatch: "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ!",
+                allergiesPlaceholder: "ਤੁਹਾਡੀਆਂ ਐਲਰਜੀਆਂ ਦੀ ਸੂਚੀ ਬਣਾਓ...",
+                conditionsPlaceholder: "ਮੌਜੂਦਾ ਮੈਡੀਕਲ ਸਥਿਤੀਆਂ ਦੀ ਸੂਚੀ ਬਣਾਓ...",
+                medicationsPlaceholder: "ਮੌਜੂਦਾ ਸਮੇਂ ਲਈ ਜਾ ਰਹੀਆਂ ਦਵाਈਆਂ ਦੀ ਸੂਚੀ ਬਣਾਓ...",
+                phonePlaceholder: "10-ਅੰਕਾਂ ਦਾ ਮੋਬਾਈਲ ਨੰਬਰ"
+            }
+        };
+
+        // Function to update text according to selected language
+        function updateLanguage(lang) {
+            document.documentElement.lang = lang; // Change lang attribute for font styling
+            document.body.lang = lang; // Change body lang attribute
+
+            // Update header
+            document.getElementById('header-title').innerText = translations[lang].headerTitle;
+            document.getElementById('header-subtitle').innerText = translations[lang].headerSubtitle;
+            
+            // Update personal information section
+            document.getElementById('personal-info-heading').innerText = translations[lang].personalInfoHeading;
+            document.getElementById('name-label').innerText = translations[lang].nameLabel;
+            document.getElementById('dob-label').innerText = translations[lang].dobLabel;
+            document.getElementById('gender-label').innerText = translations[lang].genderLabel;
+            document.getElementById('male-label').innerText = translations[lang].maleLabel;
+            document.getElementById('female-label').innerText = translations[lang].femaleLabel;
+            document.getElementById('other-label').innerText = translations[lang].otherLabel;
+            document.getElementById('phone-label').innerText = translations[lang].phoneLabel;
+            document.getElementById('phone').placeholder = translations[lang].phonePlaceholder;
+            document.getElementById('caste-label').innerText = translations[lang].casteLabel;
+            
+            // Update category options
+            updateSelectOptions('caste', [
+                { value: '', text: translations[lang].selectCategory },
+                { value: 'general', text: translations[lang].generalCategory },
+                { value: 'sc', text: translations[lang].scCategory },
+                { value: 'st', text: translations[lang].stCategory },
+                { value: 'obc', text: translations[lang].obcCategory },
+                { value: 'ews', text: translations[lang].ewsCategory },
+                { value: 'pwd', text: translations[lang].pwdCategory }
+            ]);
+            
+            // Update medical information section
+            document.getElementById('medical-info-heading').innerText = translations[lang].medicalInfoHeading;
+            document.getElementById('allergies-label').innerText = translations[lang].allergiesLabel;
+            document.getElementById('allergies').placeholder = translations[lang].allergiesPlaceholder;
+            document.getElementById('conditions-label').innerText = translations[lang].conditionsLabel;
+            document.getElementById('conditions').placeholder = translations[lang].conditionsPlaceholder;
+            document.getElementById('medications-label').innerText = translations[lang].medicationsLabel;
+            document.getElementById('medications').placeholder = translations[lang].medicationsPlaceholder;
+            
+            // Update credentials section
+            document.getElementById('credentials-heading').innerText = translations[lang].credentialsHeading;
+            document.getElementById('username-label').innerText = translations[lang].usernameLabel;
+            document.getElementById('password-label').innerText = translations[lang].passwordLabel;
+            document.getElementById('confirm-password-label').innerText = translations[lang].confirmPasswordLabel;
+            
+            // Update button and error message
+            document.getElementById('submit-btn').innerText = translations[lang].submitBtn;
+            document.getElementById('error-message').innerText = translations[lang].errorMessage;
+        }
+        
+        // Helper function to update select options
+        function updateSelectOptions(selectId, options) {
+            const select = document.getElementById(selectId);
+            const value = select.value; // Save current value
+            
+            // Clear existing options
+            select.innerHTML = '';
+            
+            // Add new options
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                select.appendChild(optionElement);
+            });
+            
+            // Restore selected value if possible
+            if (value) {
+                select.value = value;
+            }
+        }
+
+        // On page load, set default language to English
+        document.getElementById('language-selector').value = 'en';
+        updateLanguage('en');
+
+        // Language selector change event
+        document.getElementById('language-selector').addEventListener('change', function() {
+            updateLanguage(this.value);
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const currentLang = document.documentElement.lang;
+            
+            if (password !== confirmPassword) {
+                document.getElementById('error-message').textContent = translations[currentLang].passwordMismatch;
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+            
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                dob: document.getElementById('dob').value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                phone: document.getElementById('phone').value,
+                caste: document.getElementById('caste').value,
+                allergies: document.getElementById('allergies').value,
+                conditions: document.getElementById('conditions').value,
+                medications: document.getElementById('medications').value,
+                username: document.getElementById('username').value,
+                password: password,
+                language: currentLang // Store selected language
+            };
+            
+            // In a real application, you would send this data to a server
+            // For now, we'll just store it in localStorage
+            localStorage.setItem('user_data', JSON.stringify(formData));
+            localStorage.setItem('telemedicine_logged_in', 'true');
+            
+            // Redirect to main page
+            window.location.href = 'Telemed.html';
+        });
+    </script>
+</body>
+</html>
