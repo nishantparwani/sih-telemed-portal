@@ -1,6 +1,6 @@
 # Telemed — Rural Healthcare & Telemedicine Kiosk Portal
 
-> Developed for the **Smart India Hackathon (SIH)** Healthcare Challenge.
+> OLD VERSION FIRST DRAFT ADDED FOR REFERENCE- THIS VERSION HAS BEEN SUCCESSFULLY TESTED FOR AREAS WITH LOW BANDWIDTH WITH CERTAIN FEATURES LIKE LANGUAGE SWITCH AND EMERGENCY EVEN WORKING OFFLINE
 
 A lightweight, high-availability telemedicine and digital pharmacy platform engineered for rural clinics, public community health centers, and rural telemedicine kiosks. Designed to bridge the healthcare gap in underserved regions by enabling rapid digital appointment scheduling, multi-lingual patient routing, and a real-time essential medicine inventory system.
 
